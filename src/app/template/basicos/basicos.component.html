@@ -1,0 +1,61 @@
+<h2>Template: Basicos</h2>
+<hr>
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="guardar()" #miFormulario="ngForm">
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Producto</label>
+                <div class="col-sm-9">
+                    <!-- el name hace referencia a este input como un nombre UNICO, no tiene que ver con el label -->
+                    <input type="text" class="form-control" [ngModel]="initForm.producto" name="producto"  placeholder="Nombre del producto" required minlength="3">
+
+                    <span class="form-text text-danger" *ngIf="nombreValido()">Debe de ser de 3 letras</span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Precio</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" min="0"  [ngModel]="initForm.precio" name="precio" placeholder="Precio del producto" required="true" >            
+                    <span class="form-text text-danger" *ngIf="precioValido()">EL precio debe ser 0 o mayor</span>
+
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Existencias</label>
+                <div class="col-sm-9">
+                    <input type="number" customMin [minimo]="0" class="form-control" [ngModel]="initForm.existencias" name="existencias" placeholder="Existencias del producto" >                    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" [disabled]="miFormulario.invalid" class="btn btn-primary float-end" (click)="guardar()">Guardar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <span>Valid</span>
+        <!-- este hace a la referencia local del formulario,se activa esta validacioncuando cada una de las condiciones qe contenga el input ya sea un minlneght o required este cumplida -->
+        <pre>{{miFormulario.valid}}</pre>
+    </div>
+    <div class="col">
+        <span>Pristine</span>
+        <!-- Pristine se ocupa cuando ocurre un cambio en el formulario -->
+        <pre>{{miFormulario.pristine}}</pre>
+    </div>
+    <div class="col">
+        <span>Touched</span>
+        <!-- se activa cuando alguien interactua con el formulario -->
+        <pre>{{miFormulario.touched}}</pre>
+    </div>
+    <div class="col">
+        <span>value</span>
+        <!-- este hace a la referencia local del formulario -->
+        <pre>{{miFormulario.value | json}}</pre>
+    </div>
+</div>
